@@ -33,7 +33,9 @@ export default function Analyzer() {
       })
       if (!res.ok) throw new Error((await res.json()).detail || 'Gagal menganalisis video')
       const data = await res.json()
-      setJob(data)
+      // normalize id for frontend usage
+      const normalized = { ...data, _id: data.id || data._id }
+      setJob(normalized)
     } catch (err) {
       setError(err.message)
     } finally {
